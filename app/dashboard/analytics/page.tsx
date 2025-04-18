@@ -1,72 +1,10 @@
-"use client"
-
-import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { ArrowUpRight, Clock, Layers, LineChart, MousePointerClick, RefreshCw, Users } from "lucide-react"
-import {
-  Line,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-
-// Sample data for charts
-const visitorData = [
-  { date: "Mon", visitors: 890, pageviews: 2300 },
-  { date: "Tue", visitors: 968, pageviews: 2400 },
-  { date: "Wed", visitors: 1100, pageviews: 2800 },
-  { date: "Thu", visitors: 980, pageviews: 2600 },
-  { date: "Fri", visitors: 1050, pageviews: 2750 },
-  { date: "Sat", visitors: 850, pageviews: 2200 },
-  { date: "Sun", visitors: 780, pageviews: 2000 },
-]
-
-const sourceData = [
-  { name: "Direct", value: 35 },
-  { name: "Search", value: 25 },
-  { name: "Social", value: 20 },
-  { name: "Referral", value: 15 },
-  { name: "Other", value: 5 },
-]
-
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042", "#A28AFF"]
-
-const deviceData = [
-  { name: "Desktop", value: 63 },
-  { name: "Mobile", value: 32 },
-  { name: "Tablet", value: 5 },
-]
-
-const locationData = [
-  { country: "United States", visitors: 420 },
-  { country: "Germany", visitors: 210 },
-  { country: "United Kingdom", visitors: 190 },
-  { country: "Canada", visitors: 170 },
-  { country: "France", visitors: 140 },
-]
-
-const pagesData = [
-  { name: "/dashboard", views: 980, uniqueViews: 780 },
-  { name: "/analytics", views: 850, uniqueViews: 650 },
-  { name: "/users", views: 750, uniqueViews: 580 },
-  { name: "/settings", views: 570, uniqueViews: 440 },
-  { name: "/profile", views: 490, uniqueViews: 390 },
-]
+import { ArrowUpRight, Clock, Layers, MousePointerClick, RefreshCw, Users } from "lucide-react"
 
 export default function AnalyticsPage() {
-  const [dateRange, setDateRange] = useState("7d")
-
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -75,7 +13,7 @@ export default function AnalyticsPage() {
           <p className="text-muted-foreground">Track website traffic and user behavior.</p>
         </div>
         <div className="flex items-center gap-2">
-          <Select defaultValue={dateRange} onValueChange={setDateRange}>
+          <Select defaultValue="7d">
             <SelectTrigger className="w-36">
               <SelectValue placeholder="Select range" />
             </SelectTrigger>
@@ -167,37 +105,8 @@ export default function AnalyticsPage() {
               <CardTitle>Visitors Overview</CardTitle>
               <CardDescription>Daily unique visitors and pageviews for the last 7 days</CardDescription>
             </CardHeader>
-            <CardContent className="h-96">
-              <ChartContainer
-                config={{
-                  visitors: {
-                    label: "Visitors",
-                    color: "hsl(var(--chart-1))",
-                  },
-                  pageviews: {
-                    label: "Pageviews",
-                    color: "hsl(var(--chart-2))",
-                  },
-                }}
-                className="h-full"
-              >
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={visitorData}>
-                    <CartesianGrid strokeDasharray="3 3" />
-                    <XAxis dataKey="date" />
-                    <YAxis />
-                    <ChartTooltip content={<ChartTooltipContent />} />
-                    <Line
-                      type="monotone"
-                      dataKey="visitors"
-                      stroke="var(--color-visitors)"
-                      strokeWidth={2}
-                      activeDot={{ r: 6 }}
-                    />
-                    <Line type="monotone" dataKey="pageviews" stroke="var(--color-pageviews)" strokeWidth={2} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </ChartContainer>
+            <CardContent className="h-96 flex items-center justify-center">
+              <div className="text-muted-foreground">Visitors chart will be displayed here</div>
             </CardContent>
           </Card>
 
@@ -207,27 +116,8 @@ export default function AnalyticsPage() {
                 <CardTitle>Traffic Sources</CardTitle>
                 <CardDescription>Where your visitors are coming from</CardDescription>
               </CardHeader>
-              <CardContent className="h-80">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={sourceData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={60}
-                      outerRadius={100}
-                      fill="#8884d8"
-                      paddingAngle={2}
-                      dataKey="value"
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                    >
-                      {sourceData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
+              <CardContent className="h-80 flex items-center justify-center">
+                <div className="text-muted-foreground">Traffic sources chart will be displayed here</div>
               </CardContent>
             </Card>
 
@@ -236,26 +126,8 @@ export default function AnalyticsPage() {
                 <CardTitle>Top Countries</CardTitle>
                 <CardDescription>Geographic distribution of visitors</CardDescription>
               </CardHeader>
-              <CardContent className="h-80">
-                <ChartContainer
-                  config={{
-                    visitors: {
-                      label: "Visitors",
-                      color: "hsl(var(--chart-1))",
-                    },
-                  }}
-                  className="h-full"
-                >
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={locationData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="country" />
-                      <YAxis />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <Bar dataKey="visitors" fill="var(--color-visitors)" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </ChartContainer>
+              <CardContent className="h-80 flex items-center justify-center">
+                <div className="text-muted-foreground">Countries chart will be displayed here</div>
               </CardContent>
             </Card>
           </div>
@@ -268,27 +140,8 @@ export default function AnalyticsPage() {
               <CardDescription>Detailed breakdown of where your visitors are coming from</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="h-[400px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={sourceData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={100}
-                      outerRadius={140}
-                      fill="#8884d8"
-                      paddingAngle={2}
-                      dataKey="value"
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                    >
-                      {sourceData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
+              <div className="h-[400px] flex items-center justify-center">
+                <div className="text-muted-foreground">Detailed traffic sources chart will be displayed here</div>
               </div>
             </CardContent>
           </Card>
@@ -301,31 +154,8 @@ export default function AnalyticsPage() {
               <CardDescription>Most popular pages by views and unique visitors</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="h-[400px]">
-                <ChartContainer
-                  config={{
-                    views: {
-                      label: "Views",
-                      color: "hsl(var(--chart-1))",
-                    },
-                    uniqueViews: {
-                      label: "Unique Views",
-                      color: "hsl(var(--chart-2))",
-                    },
-                  }}
-                  className="h-full"
-                >
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={pagesData} layout="vertical">
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis type="number" />
-                      <YAxis dataKey="name" type="category" width={150} />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <Bar dataKey="views" fill="var(--color-views)" stackId="a" />
-                      <Bar dataKey="uniqueViews" fill="var(--color-uniqueViews)" stackId="a" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </ChartContainer>
+              <div className="h-[400px] flex items-center justify-center">
+                <div className="text-muted-foreground">Top pages chart will be displayed here</div>
               </div>
             </CardContent>
           </Card>
@@ -338,26 +168,8 @@ export default function AnalyticsPage() {
               <CardDescription>Geographic distribution of your website traffic</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="h-[400px]">
-                <ChartContainer
-                  config={{
-                    visitors: {
-                      label: "Visitors",
-                      color: "hsl(var(--chart-1))",
-                    },
-                  }}
-                  className="h-full"
-                >
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={locationData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="country" />
-                      <YAxis />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <Bar dataKey="visitors" fill="var(--color-visitors)" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </ChartContainer>
+              <div className="h-[400px] flex items-center justify-center">
+                <div className="text-muted-foreground">Visitor locations chart will be displayed here</div>
               </div>
             </CardContent>
           </Card>
@@ -370,27 +182,8 @@ export default function AnalyticsPage() {
               <CardDescription>Types of devices used by your visitors</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="h-[400px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={deviceData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={100}
-                      outerRadius={140}
-                      fill="#8884d8"
-                      paddingAngle={2}
-                      dataKey="value"
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                    >
-                      {deviceData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % 3]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
+              <div className="h-[400px] flex items-center justify-center">
+                <div className="text-muted-foreground">Device distribution chart will be displayed here</div>
               </div>
             </CardContent>
           </Card>

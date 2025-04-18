@@ -1,9 +1,8 @@
-import { CreditCard, Package, Users, BarChart, Mail, HardDrive, ArrowUp, ArrowDown } from "lucide-react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
-import { Line, LineChart, CartesianGrid, XAxis, YAxis, ResponsiveContainer } from "recharts"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
+import { ArrowUp, ArrowDown, Users, CreditCard, Package, HardDrive, Mail, BarChart } from "lucide-react"
 
+// Sample data for the dashboard
 const data = [
   { month: "Jan", revenue: 2400, users: 240 },
   { month: "Feb", revenue: 1398, users: 226 },
@@ -102,31 +101,8 @@ export default function DashboardPage() {
             <CardTitle>Revenue Overview</CardTitle>
             <CardDescription>Monthly revenue for the current year</CardDescription>
           </CardHeader>
-          <CardContent className="pl-2">
-            <ChartContainer
-              config={{
-                users: {
-                  label: "Users",
-                  color: "hsl(var(--chart-1))",
-                },
-                revenue: {
-                  label: "Revenue",
-                  color: "hsl(var(--chart-2))",
-                },
-              }}
-              className="h-[300px]"
-            >
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="month" />
-                  <YAxis />
-                  <ChartTooltip content={<ChartTooltipContent />} />
-                  <Line type="monotone" dataKey="revenue" stroke="var(--color-revenue)" strokeWidth={2} />
-                  <Line type="monotone" dataKey="users" stroke="var(--color-users)" strokeWidth={2} />
-                </LineChart>
-              </ResponsiveContainer>
-            </ChartContainer>
+          <CardContent className="h-[300px] flex items-center justify-center">
+            <div className="text-muted-foreground">Revenue chart will be displayed here</div>
           </CardContent>
         </Card>
 
