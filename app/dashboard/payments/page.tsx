@@ -26,27 +26,6 @@ import {
   Search,
   Users,
 } from "lucide-react"
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
-
-const COLORS = ["#4f46e5", "#06b6d4", "#8b5cf6", "#f43f5e", "#f59e0b"]
-
-const revenueData = [
-  { month: "Jan", revenue: 12400 },
-  { month: "Feb", revenue: 15600 },
-  { month: "Mar", revenue: 18200 },
-  { month: "Apr", revenue: 17400 },
-  { month: "May", revenue: 21300 },
-  { month: "Jun", revenue: 24500 },
-  { month: "Jul", revenue: 28700 },
-]
-
-const paymentMethodData = [
-  { name: "Credit Card", value: 68 },
-  { name: "PayPal", value: 22 },
-  { name: "Bank Transfer", value: 7 },
-  { name: "Other", value: 3 },
-]
 
 const transactions = [
   {
@@ -211,26 +190,8 @@ export default function PaymentsPage() {
                 <CardTitle>Revenue Overview</CardTitle>
                 <CardDescription>Monthly revenue for the current year</CardDescription>
               </CardHeader>
-              <CardContent className="h-80">
-                <ChartContainer
-                  config={{
-                    revenue: {
-                      label: "Revenue",
-                      color: "hsl(var(--chart-1))",
-                    },
-                  }}
-                  className="h-full"
-                >
-                  <ResponsiveContainer width="100%" height="100%">
-                    <BarChart data={revenueData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="month" />
-                      <YAxis />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <Bar dataKey="revenue" fill="var(--color-revenue)" />
-                    </BarChart>
-                  </ResponsiveContainer>
-                </ChartContainer>
+              <CardContent className="h-80 flex items-center justify-center">
+                <div className="text-muted-foreground">Revenue chart will be displayed here</div>
               </CardContent>
             </Card>
 
@@ -239,27 +200,8 @@ export default function PaymentsPage() {
                 <CardTitle>Payment Methods</CardTitle>
                 <CardDescription>Distribution of payment methods used</CardDescription>
               </CardHeader>
-              <CardContent className="h-80">
-                <ResponsiveContainer width="100%" height="100%">
-                  <PieChart>
-                    <Pie
-                      data={paymentMethodData}
-                      cx="50%"
-                      cy="50%"
-                      innerRadius={70}
-                      outerRadius={100}
-                      fill="#8884d8"
-                      paddingAngle={2}
-                      dataKey="value"
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
-                    >
-                      {paymentMethodData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
-                      ))}
-                    </Pie>
-                    <Tooltip />
-                  </PieChart>
-                </ResponsiveContainer>
+              <CardContent className="h-80 flex items-center justify-center">
+                <div className="text-muted-foreground">Payment methods chart will be displayed here</div>
               </CardContent>
             </Card>
           </div>
