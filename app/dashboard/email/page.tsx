@@ -6,11 +6,10 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { CheckCircle, Mail, Plus, RefreshCw, Send, Settings, XCircle } from "lucide-react"
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, ResponsiveContainer } from "recharts"
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from "@/components/ui/chart"
 import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 
+// Sample data for the email dashboard
 const emailData = [
   { date: "2023-05-01", sent: 1200, opened: 840, clicked: 320 },
   { date: "2023-05-02", sent: 1350, opened: 945, clicked: 405 },
@@ -169,53 +168,9 @@ export default function EmailPage() {
                 <CardDescription>Email metrics for the last 7 days</CardDescription>
               </CardHeader>
               <CardContent className="h-80">
-                <ChartContainer
-                  config={{
-                    sent: {
-                      label: "Sent",
-                      color: "hsl(var(--chart-1))",
-                    },
-                    opened: {
-                      label: "Opened",
-                      color: "hsl(var(--chart-2))",
-                    },
-                    clicked: {
-                      label: "Clicked",
-                      color: "hsl(var(--chart-3))",
-                    },
-                  }}
-                  className="h-full"
-                >
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={emailData}>
-                      <CartesianGrid strokeDasharray="3 3" />
-                      <XAxis dataKey="date" />
-                      <YAxis />
-                      <ChartTooltip content={<ChartTooltipContent />} />
-                      <Area
-                        type="monotone"
-                        dataKey="sent"
-                        stroke="var(--color-sent)"
-                        fill="var(--color-sent)"
-                        fillOpacity={0.2}
-                      />
-                      <Area
-                        type="monotone"
-                        dataKey="opened"
-                        stroke="var(--color-opened)"
-                        fill="var(--color-opened)"
-                        fillOpacity={0.2}
-                      />
-                      <Area
-                        type="monotone"
-                        dataKey="clicked"
-                        stroke="var(--color-clicked)"
-                        fill="var(--color-clicked)"
-                        fillOpacity={0.2}
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </ChartContainer>
+                <div className="h-full flex items-center justify-center">
+                  <p className="text-muted-foreground">Email performance chart will be displayed here</p>
+                </div>
               </CardContent>
             </Card>
 
@@ -472,17 +427,17 @@ export default function EmailPage() {
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Default From Email</label>
-                  <Input defaultValue="notifications@opensaas.com" />
+                  <Input defaultValue="notifications@neosaas.com" />
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Default From Name</label>
-                  <Input defaultValue="OpenSaaS Team" />
+                  <Input defaultValue="NeoSaaS Team" />
                 </div>
 
                 <div className="space-y-2">
                   <label className="text-sm font-medium">Reply-To Email</label>
-                  <Input defaultValue="support@opensaas.com" />
+                  <Input defaultValue="support@neosaas.com" />
                 </div>
               </div>
 
